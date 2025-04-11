@@ -1,0 +1,16 @@
+.idea
+.vscode
+*.sublime-project
+*.sublime-workspace
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Archivos temporales
+*.swp
+*.bak
+*.tmp
+*.temp
+*.old

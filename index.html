@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AprendeYa - Cursos como Udemy desde $20.000/mes</title>
+  <meta name="description" content="Accede a miles de cursos online en AprendeYa desde solo $20.000 mensuales. Alternativa a Udemy, sin límites. Contáctanos por WhatsApp y empieza hoy.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .hero {
+      background: linear-gradient(120deg, #6366f1, #8b5cf6);
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      transition: 0.3s ease-in-out;
+      box-shadow: 0 20px 25px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- NAVBAR -->
+  <nav class="bg-white shadow-md py-4 px-6 fixed w-full top-0 z-50">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-indigo-700">AprendeYa</h1>
+      <ul class="hidden md:flex space-x-6 text-gray-700 font-semibold">
+        <li><a href="#info" class="hover:text-indigo-600">¿Qué es?</a></li>
+        <li><a href="#cursos" class="hover:text-indigo-600">Cursos</a></li>
+        <li><a href="#testimonios" class="hover:text-indigo-600">Testimonios</a></li>
+        <li><a href="#contacto" class="hover:text-indigo-600">Contacto</a></li>
+      </ul>
+      <a href="#contacto" class="md:hidden bg-indigo-600 text-white px-4 py-2 rounded-lg">Contáctanos</a>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <header class="hero text-white text-center py-32 px-4 mt-16">
+    <h1 class="text-6xl font-extrabold mb-4 leading-tight">🚀 AprendeYa</h1>
+    <p class="text-2xl max-w-3xl mx-auto mb-4">Cursos con Udemy, pero más económicos</p>
+    <p class="text-lg">Planes desde <span class="font-bold text-yellow-300">$20.000</span> mensuales. Aprende lo que quieras, cuando quieras.</p>
+    <a href="#contacto" class="mt-6 inline-block bg-yellow-300 text-indigo-800 font-bold px-6 py-3 rounded-full shadow-lg hover:bg-yellow-400 transition">Habla con un asesor</a>
+  </header>
+
+  <!-- INFO SECTION -->
+  <section id="info" class="max-w-6xl mx-auto my-20 px-6 grid md:grid-cols-2 gap-10">
+    <div class="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-indigo-500 card">
+      <h2 class="text-3xl font-bold mb-4 text-indigo-700">¿Qué es AprendeYa?</h2>
+      <p class="text-gray-600 mb-4">AprendeYa es tu puerta a miles de cursos online en áreas como:</p>
+      <ul class="list-disc list-inside space-y-2 text-gray-700">
+        <li>🎨 Diseño gráfico y edición</li>
+        <li>💻 Programación y tecnología</li>
+        <li>📈 Marketing digital y redes</li>
+        <li>📚 Educación, idiomas y más</li>
+      </ul>
+    </div>
+    <div class="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-purple-500 card">
+      <h2 class="text-3xl font-bold mb-4 text-purple-700">¿Por qué elegirnos?</h2>
+      <ul class="space-y-3 text-gray-700">
+        <li>✅ Acceso ilimitado con una sola mensualidad</li>
+        <li>💰 Planes accesibles desde solo <strong>$20.000</strong></li>
+        <li>💬 Soporte y guía por WhatsApp</li>
+        <li>🎓 Contenido actualizado, sin límites</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CURSOS DISPONIBLES -->
+  <section id="cursos" class="bg-gradient-to-r from-purple-700 to-indigo-800 text-white py-20 px-6 text-center">
+    <h2 class="text-4xl font-extrabold mb-6">🚀 Explora Cursos de Desarrollo</h2>
+    <p class="text-lg mb-10 max-w-2xl mx-auto">Accede a miles de cursos en línea sobre programación, desarrollo web, apps, bases de datos y más. Haz clic y explora todo lo que puedes aprender.</p>
+    <a href="https://www.udemy.com/courses/development/" target="_blank" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-indigo-900 font-bold text-xl px-8 py-4 rounded-full shadow-lg transform hover:scale-105 transition">
+      🔍 Ir a Catálogo de Cursos
+    </a>
+    <div class="mt-12">
+      <img src="https://img-c.udemycdn.com/home/ub-case-studies/hero-1x-v2.jpg" alt="Cursos de desarrollo" class="rounded-xl shadow-2xl w-full max-w-4xl mx-auto hover:scale-105 transition duration-300">
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section id="testimonios" class="bg-indigo-50 py-20">
+    <div class="max-w-6xl mx-auto text-center px-6">
+      <h2 class="text-4xl font-extrabold text-indigo-700 mb-8">💬 Lo que dicen nuestros estudiantes</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white p-6 rounded-xl shadow-md card">
+          <p class="italic text-gray-700 mb-4">"¡Súper completo! Con solo $20 mil accedí a cursos de Excel, Photoshop y Python."</p>
+          <p class="font-bold text-indigo-700">— Camila R. (Medellín)</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-md card">
+          <p class="italic text-gray-700 mb-4">"La mejor alternativa a Udemy en Colombia. Acceso fácil y asesoría directa."</p>
+          <p class="font-bold text-indigo-700">— Jorge M. (Bogotá)</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-md card">
+          <p class="italic text-gray-700 mb-4">"Los asesores fueron muy atentos. Me uní el mismo día y ya estoy aprendiendo."</p>
+          <p class="font-bold text-indigo-700">— Natalia F. (Cali)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="py-20 bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-center">
+    <h2 class="text-4xl font-extrabold mb-4">📲 Contáctanos por WhatsApp</h2>
+    <p class="text-lg mb-10">Nuestros asesores están listos para ayudarte a empezar hoy mismo.</p>
+    <button 
+      onclick="contactarAsesor()" 
+      class="bg-yellow-300 text-indigo-900 font-bold px-8 py-4 rounded-full shadow-lg hover:bg-yellow-400 transition text-lg">
+      Hablar con un asesor
+    </button>
+  </section>
+
+  <script>
+    function contactarAsesor() {
+      const asesores = [
+        'https://wa.me/573002549595',
+        'https://wa.me/573026736193',
+        'https://wa.me/573225951276'
+      ];
+      const elegido = Math.floor(Math.random() * asesores.length);
+      window.open(asesores[elegido], '_blank');
+    }
+  </script>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 text-gray-300 text-center py-6 mt-10">
+    <p>&copy; 2025 AprendeYa. Todos los derechos reservados.</p>
+  </footer>
+
+</body>
+</html>
