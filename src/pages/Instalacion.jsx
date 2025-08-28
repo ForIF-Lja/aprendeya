@@ -5,6 +5,11 @@ const Instalacion = () => {
   const [navegadorNombre, setNavegadorNombre] = useState('')
   const [navegadorIcono, setNavegadorIcono] = useState('')
   const [navegadorCompatible, setNavegadorCompatible] = useState(true)
+  const [videosDisponibles, setVideosDisponibles] = useState({
+    paso2: false,
+    paso3: false,
+    paso4: false
+  })
 
   useEffect(() => {
     detectarNavegador()
@@ -45,6 +50,31 @@ const Instalacion = () => {
     setNavegador(key)
     setNavegadorNombre(nombre)
     setNavegadorIcono(icono)
+    cargarVideos(key)
+  }
+
+  const cargarVideos = (navegadorKey) => {
+    const rutas = {
+      paso2: `/videos/${navegadorKey}/paso2-extensiones.mp4`,
+      paso3: `/videos/${navegadorKey}/paso3-modo-desarrollador.mp4`,
+      paso4: `/videos/${navegadorKey}/paso4-cargar-extension.mp4`
+    }
+
+    // Verificar qué videos existen
+    const checkVideo = (paso, src) => {
+      const video = document.createElement('video')
+      video.onloadeddata = () => {
+        setVideosDisponibles(prev => ({ ...prev, [paso]: true }))
+      }
+      video.onerror = () => {
+        console.warn(`Video no encontrado: ${src}`)
+      }
+      video.src = src
+    }
+
+    Object.entries(rutas).forEach(([paso, src]) => {
+      checkVideo(paso, src)
+    })
   }
 
   const abrirExtensiones = () => {
@@ -164,8 +194,23 @@ const Instalacion = () => {
                 <h2 className="text-2xl font-bold mb-4 text-purple-700">Abrir configuración de extensiones</h2>
                 <p className="text-gray-600 mb-6">Accede a la página de extensiones de tu navegador. Puedes hacerlo manualmente o usar nuestro botón automático.</p>
                 <div className="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center mb-6">
-                  <div className="text-gray-400 text-sm">🌐 [Video de configuración de extensiones]</div>
-                  <div className="text-gray-500 text-xs mt-2">Video: Página de extensiones del navegador</div>
+                  {videosDisponibles.paso2 ? (
+                    <video 
+                      src={`/videos/${navegador}/paso2-extensiones.mp4`}
+                      className="mx-auto rounded max-w-full"
+                      autoPlay 
+                      muted 
+                      loop 
+                      playsInline
+                    >
+                      Tu navegador no soporta videos.
+                    </video>
+                  ) : (
+                    <>
+                      <div className="text-gray-400 text-sm">🌐 [Video de configuración de extensiones]</div>
+                      <div className="text-gray-500 text-xs mt-2">Video: Página de extensiones del navegador</div>
+                    </>
+                  )}
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <button 
@@ -187,8 +232,23 @@ const Instalacion = () => {
                 <h2 className="text-2xl font-bold mb-4 text-green-700">Activar modo desarrollador</h2>
                 <p className="text-gray-600 mb-6">En la página de extensiones, activa el interruptor de "Modo de desarrollador" que se encuentra en la esquina superior derecha.</p>
                 <div className="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center mb-4">
-                  <div className="text-gray-400 text-sm">⚙️ [Video del modo desarrollador]</div>
-                  <div className="text-gray-500 text-xs mt-2">Video: Interruptor de modo desarrollador activado</div>
+                  {videosDisponibles.paso3 ? (
+                    <video 
+                      src={`/videos/${navegador}/paso3-modo-desarrollador.mp4`}
+                      className="mx-auto rounded max-w-full"
+                      autoPlay 
+                      muted 
+                      loop 
+                      playsInline
+                    >
+                      Tu navegador no soporta videos.
+                    </video>
+                  ) : (
+                    <>
+                      <div className="text-gray-400 text-sm">⚙️ [Video del modo desarrollador]</div>
+                      <div className="text-gray-500 text-xs mt-2">Video: Interruptor de modo desarrollador activado</div>
+                    </>
+                  )}
                 </div>
                 <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-400">
                   <p className="text-green-800 font-semibold">✅ Importante:</p>
@@ -206,8 +266,23 @@ const Instalacion = () => {
                 <h2 className="text-2xl font-bold mb-4 text-yellow-700">Cargar extensión desempaquetada</h2>
                 <p className="text-gray-600 mb-6">Haz clic en "Cargar extensión sin empaquetar" y selecciona la carpeta descomprimida del ZIP que descargaste en el paso 1.</p>
                 <div className="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center mb-4">
-                  <div className="text-gray-400 text-sm">📂 [Video de selección de carpeta]</div>
-                  <div className="text-gray-500 text-xs mt-2">Video: Selector de carpeta con extensión descomprimida</div>
+                  {videosDisponibles.paso4 ? (
+                    <video 
+                      src={`/videos/${navegador}/paso4-cargar-extension.mp4`}
+                      className="mx-auto rounded max-w-full"
+                      autoPlay 
+                      muted 
+                      loop 
+                      playsInline
+                    >
+                      Tu navegador no soporta videos.
+                    </video>
+                  ) : (
+                    <>
+                      <div className="text-gray-400 text-sm">📂 [Video de selección de carpeta]</div>
+                      <div className="text-gray-500 text-xs mt-2">Video: Selector de carpeta con extensión descomprimida</div>
+                    </>
+                  )}
                 </div>
                 <div className="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
                   <p className="text-yellow-800 font-semibold">🎉 ¡Listo!</p>
