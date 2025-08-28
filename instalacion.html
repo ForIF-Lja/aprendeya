@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instalación de Extensión - Udemigo</title>
+  <meta name="description" content="Guía paso a paso para instalar la extensión de Udemigo en tu navegador. Fácil y rápido.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .hero { background: linear-gradient(120deg, #6366f1, #8b5cf6); }
+    .card:hover {
+      transform: translateY(-6px);
+      transition: 0.3s ease-in-out;
+      box-shadow: 0 20px 25px rgba(0,0,0,0.1);
+    }
+    .step-number {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: bold; font-size: 1.5rem; flex-shrink: 0;
+    }
+    .image-container {
+      position: relative; cursor: pointer; overflow: hidden; border-radius: 8px;
+    }
+    .image-container img, .image-container video {
+      transition: transform 0.25s ease;
+      width: 100%; height: auto;
+      transform-origin: center;
+    }
+
+    /* Resaltado del área (se mantiene, no depende del zoom CSS) */
+    .image-highlight {
+      position: absolute;
+      border: 3px solid #fbbf24;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(251, 191, 36, 0.6);
+      animation: pulse-highlight 2s infinite;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .image-container.in-view .image-highlight { opacity: 1; }
+
+    @keyframes pulse-highlight {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.02); opacity: 1; }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- NAVBAR -->
+  <nav class="bg-white shadow-md py-4 px-6 fixed w-full top-0 z-50">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <a href="index.html" class="text-2xl font-bold text-indigo-700">Udemigo</a>
+      <ul class="hidden md:flex space-x-6 text-gray-700 font-semibold">
+        <li><a href="index.html" class="hover:text-indigo-600">Inicio</a></li>
+        <li><a href="index.html#info" class="hover:text-indigo-600">¿Qué es?</a></li>
+        <li><a href="index.html#cursos" class="hover:text-indigo-600">Cursos</a></li>
+        <li><a href="index.html#contacto" class="hover:text-indigo-600">Contacto</a></li>
+      </ul>
+      <a href="index.html#contacto" class="md:hidden bg-indigo-600 text-white px-4 py-2 rounded-lg">Contáctanos</a>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <header class="hero text-white text-center py-20 px-4 mt-16">
+    <h1 class="text-5xl font-extrabold mb-4 leading-tight">🔧 Instalación de Extensión</h1>
+    <p class="text-xl max-w-3xl mx-auto mb-4">Sigue estos sencillos pasos para instalar nuestra extensión</p>
+    <p class="text-lg">Solo te tomará unos minutos y podrás empezar a usar Udemigo</p>
+  </header>
+
+  <!-- DETECTOR DE NAVEGADOR -->
+  <section class="max-w-4xl mx-auto my-10 px-6">
+    <div id="navegador-no-compatible" class="bg-red-50 border-l-4 border-red-400 p-6 rounded-lg hidden">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl">⚠️</span>
+        <div>
+          <h3 class="text-lg font-bold text-red-800">Navegador no compatible</h3>
+          <p class="text-red-700">Esta extensión solo está disponible para Chrome, Edge o Brave.</p>
+          <p class="text-red-600 text-sm mt-2">Por favor, usa uno de estos navegadores para continuar.</p>
+        </div>
+      </div>
+    </div>
+    <div id="navegador-detectado" class="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-lg">
+      <div class="flex items-center gap-3">
+        <span id="icono-navegador" class="text-2xl">🌐</span>
+        <div>
+          <h3 class="text-lg font-bold text-blue-800">Navegador detectado</h3>
+          <p id="nombre-navegador" class="text-blue-700">Detectando navegador...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PASOS DE INSTALACIÓN -->
+  <section class="max-w-4xl mx-auto my-20 px-6">
+    <div id="pasos-instalacion" class="space-y-12">
+
+      <!-- PASO 1: Descargar ZIP -->
+      <div class="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-indigo-500 card">
+        <div class="flex items-start gap-6">
+          <div class="step-number">1</div>
+          <div class="flex-1">
+            <h2 class="text-2xl font-bold mb-4 text-indigo-700">Descargar el archivo ZIP</h2>
+            <p class="text-gray-600 mb-6">Primero, descarga el archivo ZIP de la extensión haciendo clic en el botón de abajo.</p>
+            <div class="mb-6">
+              <button class="bg-indigo-600 text-white font-bold px-8 py-4 rounded-lg hover:bg-indigo-700 transition text-lg shadow-lg flex items-center gap-3">
+                <span>📦</span> Descargar ZIP
+              </button>
+            </div>
+            <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+              <p class="text-blue-800 font-semibold">💡 Consejo:</p>
+              <p class="text-blue-700">Guarda el archivo en una carpeta fácil de encontrar, como tu Escritorio.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PASO 2: Abrir configuración de extensiones -->
+      <div class="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-purple-500 card">
+        <div class="flex items-start gap-6">
+          <div class="step-number">2</div>
+          <div class="flex-1">
+            <h2 class="text-2xl font-bold mb-4 text-purple-700">Abrir configuración de extensiones</h2>
+            <p class="text-gray-600 mb-6">Accede a la página de extensiones de tu navegador. Puedes hacerlo manualmente o usar nuestro botón automático.</p>
+            <div class="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center mb-6">
+              <div id="container-paso2" class="image-container hidden">
+                <video id="imagen-paso2" src="" class="mx-auto rounded" autoplay muted loop playsinline>
+                  Tu navegador no soporta videos.
+                </video>
+              </div>
+              <div id="placeholder-paso2" class="text-gray-400 text-sm">🌐 [AQUÍ IRÁ LA IMAGEN DE LA CONFIGURACIÓN DE EXTENSIONES]</div>
+              <div class="text-gray-500 text-xs mt-2">Imagen: Página de extensiones del navegador</div>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <button onclick="abrirExtensiones()" class="bg-purple-600 text-white font-bold px-6 py-3 rounded-lg hover:bg-purple-700 transition flex items-center justify-center gap-2">
+                <span>🚀</span> Abrir configuracion de google extensions
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PASO 3: Activar modo desarrollador -->
+      <div class="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-green-500 card">
+        <div class="flex items-start gap-6">
+          <div class="step-number">3</div>
+          <div class="flex-1">
+            <h2 class="text-2xl font-bold mb-4 text-green-700">Activar modo desarrollador</h2>
+            <p class="text-gray-600 mb-6">En la página de extensiones, activa el interruptor de "Modo de desarrollador" que se encuentra en la esquina superior derecha.</p>
+            <div class="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center mb-4">
+              <div id="container-paso3" class="image-container hidden">
+                <video id="imagen-paso3" src="" class="mx-auto rounded" autoplay muted loop playsinline>
+                  Tu navegador no soporta videos.
+                </video>
+                <div id="highlight-paso3" class=""></div>
+              </div>
+              <div id="placeholder-paso3" class="text-gray-400 text-sm">⚙️ [AQUÍ IRÁ LA IMAGEN DEL MODO DESARROLLADOR]</div>
+              <div class="text-gray-500 text-xs mt-2">Imagen: Interruptor de modo desarrollador activado</div>
+            </div>
+            <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400">
+              <p class="text-green-800 font-semibold">✅ Importante:</p>
+              <p class="text-green-700">Una vez activado, aparecerán nuevas opciones incluyendo "Cargar extensión sin empaquetar".</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PASO 4: Cargar extensión desempaquetada -->
+      <div class="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-yellow-500 card">
+        <div class="flex items-start gap-6">
+          <div class="step-number">4</div>
+          <div class="flex-1">
+            <h2 class="text-2xl font-bold mb-4 text-yellow-700">Cargar extensión desempaquetada</h2>
+            <p class="text-gray-600 mb-6">Haz clic en "Cargar extensión sin empaquetar" y selecciona la carpeta descomprimida del ZIP que descargaste en el paso 1.</p>
+            <div class="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center mb-4">
+              <div id="container-paso4" class="image-container hidden">
+                <video id="imagen-paso4" src="" class="mx-auto rounded" autoplay muted loop playsinline>
+                  Tu navegador no soporta videos.
+                </video>
+              </div>
+              <div id="placeholder-paso4" class="text-gray-400 text-sm">📂 [AQUÍ IRÁ LA IMAGEN DE SELECCIÓN DE CARPETA]</div>
+              <div class="text-gray-500 text-xs mt-2">Imagen: Selector de carpeta con extensión descomprimida</div>
+            </div>
+            <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+              <p class="text-yellow-800 font-semibold">🎉 ¡Listo!</p>
+              <p class="text-yellow-700">Una vez selecciones la carpeta, la extensión se instalará automáticamente y aparecerá en tu lista de extensiones.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PASO 5: Ir a Udemy -->
+      <div class="bg-white p-8 rounded-2xl shadow-xl border-l-4 border-purple-500 card">
+        <div class="flex items-start gap-6">
+          <div class="step-number">5</div>
+          <div class="flex-1">
+            <h2 class="text-2xl font-bold mb-4 text-purple-700">¡Ve a Udemy y comienza a aprender!</h2>
+            <p class="text-gray-600 mb-6">Con la extensión instalada, ahora puedes acceder a todos los cursos de Udemy y usar Udemigo para mejorar tu experiencia de aprendizaje.</p>
+            
+            <div class="mb-6">
+              <button 
+                onclick="irAUdemy()" 
+                class="bg-purple-600 text-white font-bold px-8 py-4 rounded-lg hover:bg-purple-700 transition text-lg shadow-lg flex items-center gap-3">
+                <span>🎓</span> Ir a Udemy
+              </button>
+            </div>
+            
+            <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-400">
+              <p class="text-purple-800 font-semibold">🚀 ¡Felicidades!</p>
+              <p class="text-purple-700">Ya tienes todo listo para usar Udemigo. La extensión te ayudará automáticamente mientras estudias en Udemy.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECCIÓN DE AYUDA -->
+  <section class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-16 px-6 text-center">
+    <h2 class="text-3xl font-extrabold mb-4">¿Necesitas ayuda?</h2>
+    <p class="text-lg mb-8">Si tienes problemas con la instalación, nuestros asesores están listos para ayudarte.</p>
+    <button onclick="contactarAsesor()" class="bg-yellow-300 text-indigo-900 font-bold px-8 py-4 rounded-full shadow-lg hover:bg-yellow-400 transition text-lg">
+      💬 Contactar Soporte
+    </button>
+  </section>
+
+  <script>
+    // =========================
+    // CONFIG: Animación por frames por navegador y paso
+    // start/end en FRAMES (no segundos). fps default = 30.
+    const animConfig = {
+      chrome: {
+        paso2: {
+      origin: "50% 100%", // punto inicial del zoom
+      keyframes: [
+        { t: 0.0, scale: 1.0,  y: 0, x:0},     // Inicio
+        { t: 0.1, scale: 1.5, y: -30, x:0},     
+        { t: 0.3, scale: 1.5, y: -30, x:0},     
+        { t: 0.35, scale: 1.5, y: 20, x:0},
+        { t: 0.5, scale: 1.5, y: 20, x:0},
+        { t: 0.53, scale: 1, y: 0, x:0},
+        { t: 0.57, scale: 1, y: 0, x:0},
+        { t: 0.58, scale: 1.5, y: 130, x:100},
+        { t: 0.75, scale: 1.5, y: 130, x:100},
+        { t: 0.7, scale: 1.5,x:100, y: 100 },
+        { t: 0.8, scale: 1, y: 0, x:0 },
+        { t: 0.9, scale: 1, y: 0, x:0 },
+        { t: 1.0, scale: 1.0, y: 0, x:0 }      // Final (volver a normal)
+      ]
+    },
+        
+        paso3: {
+      origin: "50% 100%", // punto inicial del zoom
+      keyframes: [
+        { t: 0.0, scale: 1.0,  y: 0, x:0},     // Inicio
+        { t: 0.3, scale: 1.8,  y: 170, x:-150},     // Inicio
+        { t: 0.7, scale: 1.8,  y: 170, x:-150},     // Inicio
+        { t: 0.7, scale: 1.8,  y: 170, x:-150},     // Inicio
+        { t: 0.8, scale: 1,  y: 0, x:0},     // Inicio
+        { t: 1.0, scale: 1.0,  y: 0, x:0},     // Inicio
+       
+      ]
+    },
+
+
+
+         paso4: {
+      origin: "50% 100%", // punto inicial del zoom
+      keyframes: [
+        { t: 0.0, scale: 1.0,  y: 0, x:0},     // Inicio
+        { t: 0.1, scale: 1.8,  y: 170, x:150},     // Inicio
+        { t: 0.3, scale: 1.8,  y: 170, x:150},     // Inicio
+        { t: 0.5, scale: 1.8,  y: 170, x:150},     // Inicio
+        { t: 0.55, scale: 1,  y: 0, x:0},     // Inicio
+        { t: 0.6, scale: 1,  y: 0, x:0},     // Inicio
+        { t: 0.61, scale: 1.5,  y: -150, x:-150},     // Inicio
+        { t: 0.7, scale: 1.5,  y: -150, x:-150},     // Inicio
+        { t: 0.8, scale: 1,  y: 0, x:0},     // Inicio
+        { t: 1.0, scale: 1.0,  y: 0, x:0},     // Inicio
+       
+      ]
+    },
+      },
+      edge: {
+        paso2: { start: 25, end: 85, origin: "55% 100%", scaleStart: 1.0, scaleEnd: 1.4 },
+        paso3: { start: 12, end: 58, origin: "90% 5%",   scaleStart: 2.1, scaleEnd: 2.7 },
+        paso4: { start: 18, end: 75, origin: "30% 30%",  scaleStart: 1.0, scaleEnd: 1.4 }
+      },
+      brave: {
+        paso2: { start: 35, end: 95, origin: "45% 90%",  scaleStart: 1.0, scaleEnd: 1.4 },
+        paso3: { start: 15, end: 65, origin: "95% 5%",   scaleStart: 2.3, scaleEnd: 2.9 },
+        paso4: { start: 22, end: 82, origin: "20% 25%",  scaleStart: 1.0, scaleEnd: 1.6 }
+      }
+    };
+    const DEFAULT_FPS = 30;
+
+    // =========================
+    // Observador para clase in-view (solo para mostrar resaltes, ya no para zoom CSS)
+    document.addEventListener('DOMContentLoaded', () => {
+      detectarNavegadorYCargarImagenes();
+      configurarScrollObserver();
+    });
+
+    function configurarScrollObserver() {
+      const containers = document.querySelectorAll('.image-container');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('in-view');
+          else entry.target.classList.remove('in-view');
+        });
+      }, { threshold: 0.3, rootMargin: '0px 0px -50px 0px' });
+      containers.forEach(c => observer.observe(c));
+    }
+
+    // =========================
+    // Detección de navegador (Brave asíncrono)
+    async function detectarNavegadorYCargarImagenes() {
+      const userAgent = navigator.userAgent;
+      let key = ''; let nombre = ''; let icono = '';
+
+      if (/Edg/.test(userAgent)) {
+        key = 'edge'; nombre = 'Microsoft Edge'; icono = '🔷';
+      } else if (navigator.brave && typeof navigator.brave.isBrave === 'function') {
+        try {
+          const isBrave = await navigator.brave.isBrave();
+          if (isBrave) { key = 'brave'; nombre = 'Brave'; icono = '🦁'; }
+        } catch(e) { /* ignore */ }
+      }
+      if (!key && /Chrome/.test(userAgent) && /Google Inc/.test(navigator.vendor)) {
+        key = 'chrome'; nombre = 'Google Chrome'; icono = '🟢';
+      }
+
+      if (!key) {
+        document.getElementById('navegador-detectado').classList.add('hidden');
+        document.getElementById('navegador-no-compatible').classList.remove('hidden');
+        return;
+      }
+
+      document.getElementById('icono-navegador').textContent = icono;
+      document.getElementById('nombre-navegador').textContent = `${nombre} - ¡Compatible! ✅`;
+
+      cargarVideosNavegador(key);
+    }
+
+    // =========================
+    // Carga de videos y arranque de animación por frames
+    function cargarVideosNavegador(navegador) {
+      const rutas = {
+        paso2: `videos/${navegador}/paso2-extensiones.mp4`,
+        paso3: `videos/${navegador}/paso3-modo-desarrollador.mp4`,
+        paso4: `videos/${navegador}/paso4-cargar-extension.mp4`
+      };
+
+      for (const [paso, src] of Object.entries(rutas)) {
+        const video = document.getElementById(`imagen-${paso}`);
+        const container = document.getElementById(`container-${paso}`);
+        const placeholder = document.getElementById(`placeholder-${paso}`);
+
+        // Verificar existencia del archivo de video
+        const testVideo = document.createElement('video');
+        testVideo.onloadeddata = () => {
+          video.src = src;
+          video.onloadeddata = () => {
+            container.classList.remove('hidden');
+            placeholder.classList.add('hidden');
+
+            // Resaltado especial del paso 3
+            if (paso === 'paso3') {
+              configurarResaltadoPaso3(video, navegador);
+            }
+
+            // Iniciar animación por frames si hay config
+            const cfg = animConfig[navegador] && animConfig[navegador][paso];
+            if (cfg) animarVideoPorFrames(video, cfg, DEFAULT_FPS);
+          };
+        };
+        testVideo.onerror = () => {
+          // Si no existe el recurso, se mantiene el placeholder
+          console.warn(`Video no encontrado: ${src}`);
+        };
+        testVideo.src = src;
+      }
+    }
+
+    // =========================
+    // Animación controlada por frames
+   function animarVideoPorFrames(video, config) {
+  function step() {
+    const progress = video.currentTime / video.duration;
+    
+    let k1, k2;
+    for (let i = 0; i < config.keyframes.length - 1; i++) {
+      if (progress >= config.keyframes[i].t && progress <= config.keyframes[i + 1].t) {
+        k1 = config.keyframes[i];
+        k2 = config.keyframes[i + 1];
+        break;
+      }
+    }
+    
+    if (k1 && k2) {
+      const localProgress = (progress - k1.t) / (k2.t - k1.t);
+      const scale = k1.scale + (k2.scale - k1.scale) * localProgress;
+      const x = k1.x + (k2.x - k1.x) * localProgress;
+      const y = k1.y + (k2.y - k1.y) * localProgress;
+      video.style.transformOrigin = config.origin;
+      video.style.transform = `scale(${scale}) translate(${x}px, ${y}px)`;
+    }
+
+    requestAnimationFrame(step);
+  }
+  
+  step();
+}
+
+
+    // =========================
+    // Resaltado del paso 3 (posición del rectángulo)
+    function configurarResaltadoPaso3(videoEl, navegador) {
+      const highlight = document.getElementById('highlight-paso3');
+      const posiciones = {
+        chrome: { top: '15%', right: '5%', width: '180px', height: '30px' },
+        edge:   { top: '15%', right: '5%', width: '180px', height: '30px' },
+        brave:  { top: '15%', right: '5%', width: '180px', height: '30px' }
+      };
+      const pos = posiciones[navegador] || posiciones.chrome;
+      highlight.style.top = pos.top;
+      highlight.style.right = pos.right;
+      highlight.style.width = pos.width;
+      highlight.style.height = pos.height;
+    }
+
+    // =========================
+    // Modal para abrir extensiones
+    function abrirExtensiones() {
+      const userAgent = navigator.userAgent;
+      let mensaje = ''; let url = '';
+
+      if (/Edg/.test(userAgent)) {
+        mensaje = 'Para Microsoft Edge:\n1. Copia esta dirección: edge://extensions/\n2. Pégala en la barra de direcciones\n3. Presiona Enter';
+        url = 'edge://extensions/';
+      } else if (navigator.brave && typeof navigator.brave.isBrave === 'function') {
+        // Suponemos Brave si existe la API; el usuario puede pegar la URL igual
+        mensaje = 'Para Brave:\n1. Copia esta dirección: brave://extensions/\n2. Pégala en la barra de direcciones\n3. Presiona Enter';
+        url = 'brave://extensions/';
+      } else if (/Chrome/.test(userAgent) && /Google Inc/.test(navigator.vendor)) {
+        mensaje = 'Para Chrome:\n1. Copia esta dirección: chrome://extensions/\n2. Pégala en la barra de direcciones\n3. Presiona Enter';
+        url = 'chrome://extensions/';
+      } else {
+        mensaje = 'Navegador no compatible.\n\nEsta extensión solo funciona en:\nChrome: chrome://extensions/\nEdge: edge://extensions/\nBrave: brave://extensions/';
+      }
+      mostrarModal(mensaje, url);
+    }
+
+    function mostrarModal(mensaje, url) {
+      const modal = document.createElement('div');
+      modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+      modal.innerHTML = `
+        <div class="bg-white rounded-lg p-6 max-w-md w-full">
+          <h3 class="text-lg font-bold mb-4 text-indigo-700">🌐 Instrucciones para abrir extensiones</h3>
+          <p class="text-gray-700 mb-4 whitespace-pre-line">${mensaje}</p>
+          ${url ? `
+            <div class="bg-gray-100 p-3 rounded mb-4">
+              <p class="text-sm text-gray-600 mb-2">Copia esta dirección:</p>
+              <div class="flex items-center gap-2">
+                <input type="text" value="${url}" readonly class="flex-1 p-2 border rounded text-sm" id="urlToCopy">
+                <button onclick="copiarURL('${url}')" class="bg-indigo-600 text-white px-3 py-2 rounded text-sm hover:bg-indigo-700">
+                  📋 Copiar
+                </button>
+              </div>
+            </div>
+          ` : ''}
+          <button onclick="cerrarModal()" class="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700">
+            Entendido
+          </button>
+        </div>
+      `;
+      document.body.appendChild(modal);
+      modal.addEventListener('click', (e) => { if (e.target === modal) cerrarModal(); });
+    }
+
+    function copiarURL(url) {
+      navigator.clipboard.writeText(url).then(() => {
+        const btn = event.target;
+        const original = btn.innerHTML;
+        btn.innerHTML = '✅ Copiado';
+        setTimeout(() => { btn.innerHTML = original; }, 2000);
+      });
+    }
+    function cerrarModal() {
+      const modal = document.querySelector('.fixed.inset-0');
+      if (modal) modal.remove();
+    }
+
+    // =========================
+    // Soporte
+    function contactarAsesor() {
+      const asesores = [
+        'https://wa.me/573002549595',
+        'https://wa.me/573026736193',
+        'https://wa.me/573225951276'
+      ];
+      const elegido = Math.floor(Math.random() * asesores.length);
+      window.open(asesores[elegido], '_blank');
+    }
+
+    function irAUdemy() {
+      window.open('https://www.udemy.com/', '_blank');
+    }
+  </script>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 text-gray-300 text-center py-6 mt-10">
+    <p>&copy; 2025 Udemigo. Todos los derechos reservados.</p>
+    <p class="mt-2"><a href="index.html" class="text-indigo-400 hover:text-indigo-300">← Volver al inicio</a></p>
+  </footer>
+
+</body>
+</html>
