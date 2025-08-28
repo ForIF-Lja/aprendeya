@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 const Instalacion = () => {
   const [navegador, setNavegador] = useState('')
@@ -10,6 +10,69 @@ const Instalacion = () => {
     paso3: false,
     paso4: false
   })
+  
+  // Referencias para videos y animaciones
+  const videoRefs = useRef({})
+  const animationFrameIds = useRef({})
+  
+  // Configuración de animaciones
+  const animConfig = {
+    chrome: {
+      paso2: {
+        origin: "50% 100%",
+        keyframes: [
+          { t: 0.0, scale: 1.0, y: 0, x: 0 },
+          { t: 0.1, scale: 1.5, y: -30, x: 0 },
+          { t: 0.3, scale: 1.5, y: -30, x: 0 },
+          { t: 0.35, scale: 1.5, y: 20, x: 0 },
+          { t: 0.5, scale: 1.5, y: 20, x: 0 },
+          { t: 0.53, scale: 1, y: 0, x: 0 },
+          { t: 0.57, scale: 1, y: 0, x: 0 },
+          { t: 0.58, scale: 1.5, y: 130, x: 100 },
+          { t: 0.75, scale: 1.5, y: 130, x: 100 },
+          { t: 0.7, scale: 1.5, x: 100, y: 100 },
+          { t: 0.8, scale: 1, y: 0, x: 0 },
+          { t: 0.9, scale: 1, y: 0, x: 0 },
+          { t: 1.0, scale: 1.0, y: 0, x: 0 }
+        ]
+      },
+      paso3: {
+        origin: "50% 100%",
+        keyframes: [
+          { t: 0.0, scale: 1.0, y: 0, x: 0 },
+          { t: 0.3, scale: 1.8, y: 170, x: -150 },
+          { t: 0.7, scale: 1.8, y: 170, x: -150 },
+          { t: 0.8, scale: 1, y: 0, x: 0 },
+          { t: 1.0, scale: 1.0, y: 0, x: 0 }
+        ]
+      },
+      paso4: {
+        origin: "50% 100%",
+        keyframes: [
+          { t: 0.0, scale: 1.0, y: 0, x: 0 },
+          { t: 0.1, scale: 1.8, y: 170, x: 150 },
+          { t: 0.3, scale: 1.8, y: 170, x: 150 },
+          { t: 0.5, scale: 1.8, y: 170, x: 150 },
+          { t: 0.55, scale: 1, y: 0, x: 0 },
+          { t: 0.6, scale: 1, y: 0, x: 0 },
+          { t: 0.61, scale: 1.5, y: -150, x: -150 },
+          { t: 0.7, scale: 1.5, y: -150, x: -150 },
+          { t: 0.8, scale: 1, y: 0, x: 0 },
+          { t: 1.0, scale: 1.0, y: 0, x: 0 }
+        ]
+      }
+    },
+    edge: {
+      paso2: { start: 25, end: 85, origin: "55% 100%", scaleStart: 1.0, scaleEnd: 1.4 },
+      paso3: { start: 12, end: 58, origin: "90% 5%", scaleStart: 2.1, scaleEnd: 2.7 },
+      paso4: { start: 18, end: 75, origin: "30% 30%", scaleStart: 1.0, scaleEnd: 1.4 }
+    },
+    brave: {
+      paso2: { start: 35, end: 95, origin: "45% 90%", scaleStart: 1.0, scaleEnd: 1.4 },
+      paso3: { start: 15, end: 65, origin: "95% 5%", scaleStart: 2.3, scaleEnd: 2.9 },
+      paso4: { start: 22, end: 82, origin: "20% 25%", scaleStart: 1.0, scaleEnd: 1.6 }
+    }
+  }
 
   useEffect(() => {
     detectarNavegador()
@@ -65,6 +128,17 @@ const Instalacion = () => {
       const video = document.createElement('video')
       video.onloadeddata = () => {
         setVideosDisponibles(prev => ({ ...prev, [paso]: true }))
+        
+        // Configurar animación para el video después de que se cargue
+        setTimeout(() => {
+          const videoElement = videoRefs.current[paso]
+          if (videoElement) {
+            const config = animConfig[navegadorKey] && animConfig[navegadorKey][paso]
+            if (config && config.keyframes) {
+              animarVideoPorFrames(videoElement, config, paso)
+            }
+          }
+        }, 100)
       }
       video.onerror = () => {
         console.warn(`Video no encontrado: ${src}`)
@@ -76,6 +150,66 @@ const Instalacion = () => {
       checkVideo(paso, src)
     })
   }
+
+  // Función de animación por keyframes
+  const animarVideoPorFrames = (video, config, paso) => {
+    const animate = () => {
+      if (!video.duration) {
+        animationFrameIds.current[paso] = requestAnimationFrame(animate)
+        return
+      }
+
+      const progress = video.currentTime / video.duration
+      
+      let k1, k2
+      for (let i = 0; i < config.keyframes.length - 1; i++) {
+        if (progress >= config.keyframes[i].t && progress <= config.keyframes[i + 1].t) {
+          k1 = config.keyframes[i]
+          k2 = config.keyframes[i + 1]
+          break
+        }
+      }
+      
+      if (k1 && k2) {
+        const localProgress = (progress - k1.t) / (k2.t - k1.t)
+        const scale = k1.scale + (k2.scale - k1.scale) * localProgress
+        const x = k1.x + (k2.x - k1.x) * localProgress
+        const y = k1.y + (k2.y - k1.y) * localProgress
+        
+        video.style.transformOrigin = config.origin
+        video.style.transform = `scale(${scale}) translate(${x}px, ${y}px)`
+      }
+
+      animationFrameIds.current[paso] = requestAnimationFrame(animate)
+    }
+    
+    animate()
+  }
+
+  // Configurar scroll observer
+  useEffect(() => {
+    const containers = document.querySelectorAll('.image-container')
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view')
+        } else {
+          entry.target.classList.remove('in-view')
+        }
+      })
+    }, { threshold: 0.3, rootMargin: '0px 0px -50px 0px' })
+    
+    containers.forEach(container => observer.observe(container))
+    
+    return () => {
+      containers.forEach(container => observer.unobserve(container))
+      // Limpiar animaciones
+      Object.values(animationFrameIds.current).forEach(id => {
+        if (id) cancelAnimationFrame(id)
+      })
+    }
+  }, [videosDisponibles])
 
   const abrirExtensiones = () => {
     const urls = {
@@ -195,16 +329,19 @@ const Instalacion = () => {
                 <p className="text-gray-600 mb-6">Accede a la página de extensiones de tu navegador. Puedes hacerlo manualmente o usar nuestro botón automático.</p>
                 <div className="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center mb-6">
                   {videosDisponibles.paso2 ? (
-                    <video 
-                      src={`/videos/${navegador}/paso2-extensiones.mp4`}
-                      className="mx-auto rounded max-w-full"
-                      autoPlay 
-                      muted 
-                      loop 
-                      playsInline
-                    >
-                      Tu navegador no soporta videos.
-                    </video>
+                    <div className="image-container">
+                      <video 
+                        ref={el => videoRefs.current.paso2 = el}
+                        src={`/videos/${navegador}/paso2-extensiones.mp4`}
+                        className="mx-auto rounded max-w-full"
+                        autoPlay 
+                        muted 
+                        loop 
+                        playsInline
+                      >
+                        Tu navegador no soporta videos.
+                      </video>
+                    </div>
                   ) : (
                     <>
                       <div className="text-gray-400 text-sm">🌐 [Video de configuración de extensiones]</div>
@@ -233,16 +370,28 @@ const Instalacion = () => {
                 <p className="text-gray-600 mb-6">En la página de extensiones, activa el interruptor de "Modo de desarrollador" que se encuentra en la esquina superior derecha.</p>
                 <div className="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center mb-4">
                   {videosDisponibles.paso3 ? (
-                    <video 
-                      src={`/videos/${navegador}/paso3-modo-desarrollador.mp4`}
-                      className="mx-auto rounded max-w-full"
-                      autoPlay 
-                      muted 
-                      loop 
-                      playsInline
-                    >
-                      Tu navegador no soporta videos.
-                    </video>
+                    <div className="image-container">
+                      <video 
+                        ref={el => videoRefs.current.paso3 = el}
+                        src={`/videos/${navegador}/paso3-modo-desarrollador.mp4`}
+                        className="mx-auto rounded max-w-full"
+                        autoPlay 
+                        muted 
+                        loop 
+                        playsInline
+                      >
+                        Tu navegador no soporta videos.
+                      </video>
+                      <div 
+                        className="image-highlight"
+                        style={{
+                          top: '15%',
+                          right: '5%',
+                          width: '180px',
+                          height: '30px'
+                        }}
+                      ></div>
+                    </div>
                   ) : (
                     <>
                       <div className="text-gray-400 text-sm">⚙️ [Video del modo desarrollador]</div>
@@ -267,16 +416,19 @@ const Instalacion = () => {
                 <p className="text-gray-600 mb-6">Haz clic en "Cargar extensión sin empaquetar" y selecciona la carpeta descomprimida del ZIP que descargaste en el paso 1.</p>
                 <div className="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center mb-4">
                   {videosDisponibles.paso4 ? (
-                    <video 
-                      src={`/videos/${navegador}/paso4-cargar-extension.mp4`}
-                      className="mx-auto rounded max-w-full"
-                      autoPlay 
-                      muted 
-                      loop 
-                      playsInline
-                    >
-                      Tu navegador no soporta videos.
-                    </video>
+                    <div className="image-container">
+                      <video 
+                        ref={el => videoRefs.current.paso4 = el}
+                        src={`/videos/${navegador}/paso4-cargar-extension.mp4`}
+                        className="mx-auto rounded max-w-full"
+                        autoPlay 
+                        muted 
+                        loop 
+                        playsInline
+                      >
+                        Tu navegador no soporta videos.
+                      </video>
+                    </div>
                   ) : (
                     <>
                       <div className="text-gray-400 text-sm">📂 [Video de selección de carpeta]</div>
