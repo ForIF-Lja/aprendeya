@@ -1,0 +1,7 @@
+AddType application/javascript .jsx
+
+# Fallback for React Router
+Options -MultiViews
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.html [QSA,L]
